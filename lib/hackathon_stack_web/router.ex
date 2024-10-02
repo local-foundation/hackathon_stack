@@ -1,5 +1,6 @@
 defmodule HackathonStackWeb.Router do
   use HackathonStackWeb, :router
+  import PhoenixStorybook.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -39,6 +40,15 @@ defmodule HackathonStackWeb.Router do
 
       live_dashboard "/dashboard", metrics: HackathonStackWeb.Telemetry
       forward "/mailbox", Plug.Swoosh.MailboxPreview
+    end
+
+    scope "/" do
+      storybook_assets()
+    end
+
+    scope "/", Elixir.HackathonStackWeb do
+      pipe_through(:browser)
+      live_storybook("/storybook", backend_module: Elixir.HackathonStackWeb.Storybook)
     end
   end
 end
