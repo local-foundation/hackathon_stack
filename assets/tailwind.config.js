@@ -9,8 +9,9 @@ module.exports = {
   content: [
     "./js/**/*.js",
     "../lib/hackathon_stack_web.ex",
-    "../lib/hackathon_stack_web/**/*.*ex"
+    "../lib/hackathon_stack_web/**/*.*ex",
   ],
+  important: ".hackathon-stack-web",
   theme: {
     extend: {
       colors: {

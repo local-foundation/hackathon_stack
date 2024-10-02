@@ -42,15 +42,20 @@ defmodule HackathonStack.MixProject do
       {:phoenix_live_view, "~> 1.0.0-rc.1", override: true},
       {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.8.3"},
+      {:phoenix_storybook, "~> 0.6.4"},
       {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.2", runtime: Mix.env() == :dev},
-      {:heroicons,
-       github: "tailwindlabs/heroicons",
-       tag: "v2.1.1",
-       sparse: "optimized",
-       app: false,
-       compile: false,
-       depth: 1},
+      {
+        :heroicons,
+        # Add THIS line
+        github: "tailwindlabs/heroicons",
+        tag: "v2.1.1",
+        sparse: "optimized",
+        app: false,
+        compile: false,
+        override: true,
+        depth: 1
+      },
       {:swoosh, "~> 1.5"},
       {:finch, "~> 0.13"},
       {:telemetry_metrics, "~> 1.0"},
@@ -77,6 +82,7 @@ defmodule HackathonStack.MixProject do
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
       "assets.build": ["tailwind hackathon_stack", "esbuild hackathon_stack"],
       "assets.deploy": [
+        "tailwind storybook --minify",
         "tailwind hackathon_stack --minify",
         "esbuild hackathon_stack --minify",
         "phx.digest"
